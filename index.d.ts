@@ -1,8 +1,7 @@
-/// <reference types="node" />
-
 import { PassThrough } from "stream";
 import * as semver from "semver";
 import * as compat from "winston-compat";
+import * as winston from "winston";
 
 if (semver.major(winston.version) === 2) {
     import * as Transport from "winston-transport";
@@ -10,21 +9,8 @@ if (semver.major(winston.version) === 2) {
     import * as Transport from compat.Transport;
 }
 
-declare module 'winston-daily-rotate-file' {
 
-    declare interface LoggerDefaults {
-        [x: string]: any;
-        json: boolean;
-        colorice: boolean;
-        eol: string;
-        logstash: any;
-        prettyPrint: boolean;
-        label: string;
-        stringify: boolean;
-        depth: any;
-        showLevel: boolean;
-        timestamp(): string;
-    }
+declare global {
 
     declare class DailyRotateFile extends Transport {
         name: string;
@@ -39,5 +25,5 @@ declare module 'winston-daily-rotate-file' {
         query(options, callback): void;
     }
 
-    export = DailyRotateFile;
+    winston.transports.DailyRotateFile = DailyRotateFile;
 }
