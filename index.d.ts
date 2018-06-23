@@ -26,4 +26,5 @@ declare global {
     }
 
     winston.transports.DailyRotateFile = DailyRotateFile;
+    export = DailyRotateFile;
 }
