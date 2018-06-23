@@ -25,6 +25,10 @@ declare global {
         query(options, callback): void;
     }
 
+    export declare interface Transports extends winston.Transports {
+        DailyRotateFile: DailyRotateFile
+    }
+
     winston.transports.DailyRotateFile = DailyRotateFile;
     export = DailyRotateFile;
 }
