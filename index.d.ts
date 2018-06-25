@@ -1,34 +1,34 @@
+/// <reference types="node" />
+
 import { PassThrough } from "stream";
-import * as semver from "semver";
-import * as compat from "winston-compat";
-import * as winston from "winston";
+import * as TransportStream from "winston-transport";
+import { LoggerOptions } from "winston";
 
-if (semver.major(winston.version) === 2) {
-    import * as Transport from "winston-transport";
-} else {
-    import * as Transport from compat.Transport;
-}
+declare namespace winston {
 
+    interface DailyRotateFileOptions extends LoggerOptions {
+        filename: string;
+        datePattern: string;
+        maxSize: string;
+        maxFiles: string;
+        zippedArchive: boolean;
+    }
 
-declare global {
-
-    declare class DailyRotateFile extends Transport {
+    interface DailyRotateFile extends TransportStream {
         name: string;
         options: any;
         logStream?: PassThrough;
         filename?: string;
         dirname?: string;
     
-        constructor(options: any);
-    
-        close(): void;
-        query(options, callback): void;
+        new(options: winston.DailyRotateFileOptions): DailyRotateFile;
     }
 
-    export declare interface Transports extends winston.Transports {
-        DailyRotateFile: DailyRotateFile
-    }
 
-    winston.transports.DailyRotateFile = DailyRotateFile;
-    export = DailyRotateFile;
+    interface Transports {
+        DailyRotateFile: DailyRotateFile;
+    }
 }
+
+declare const winston: winston.Transports;
+export = winston;
