@@ -48,6 +48,28 @@ The DailyRotateFile transport can rotate files by minute, hour, day, month, year
   logger.info('Hello World!');
 ```
 
+## Usage Typescript
+``` js
+  import * as winston from 'winston';
+  import WinstonDailyRotateFile = require('winston-daily-rotate-file');
+
+  const transport = new WinstonDailyRotateFile({
+    filename: filename,
+    datePattern: 'YYYY-MM-DD-HH',
+    zippedArchive: true,
+    maxSize: '20m',
+    maxFiles: '14d'
+  });
+  
+  const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+      transport
+    ]
+  });
+```
+
 You can listen for the *rotate* custom event. The rotate event will pass two parameters to the callback (*oldFilename*, *newFilename*).
 
 ## LICENSE
