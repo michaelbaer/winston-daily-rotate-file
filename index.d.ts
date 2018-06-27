@@ -1,3 +1,4 @@
 /// <reference types="node" />
 
-export * from "./daily-rotate-file";
+import { DailyRotateFile } from "./daily-rotate-file";
+export = DailyRotateFile;
